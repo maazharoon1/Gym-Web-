@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --morr-orange: #FF5500;
+    --morr-orange-hover: #E04B00;
+    --morr-black: #080808;
+    --morr-card: #121214;
+    --morr-card-hover: #1A1A1E;
+    --morr-border: #24242A;
+  }
+  
+  body {
+    background-color: #080808;
+    color: #F4F4F5;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+.font-display {
+  font-family: 'Bebas Neue', 'Oswald', sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.font-athletic {
+  font-family: 'Anton', 'Bebas Neue', sans-serif;
+  letter-spacing: 0.03em;
+}
+
+.font-heading {
+  font-family: 'Oswald', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0B0D;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5500;
+}
+
+/* Smooth orange glow */
+.orange-glow {
+  box-shadow: 0 0 40px -10px rgba(255, 85, 0, 0.35);
+}
+
+.orange-glow-sm {
+  box-shadow: 0 0 20px -5px rgba(255, 85, 0, 0.25);
+}
+
+.orange-glow-lg {
+  box-shadow: 0 0 80px -15px rgba(255, 85, 0, 0.45);
+}
+
+/* Diagonal stripe pattern for athletic feel */
+.bg-athletic-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-morr-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 85, 0, 0.03),
+    rgba(255, 85, 0, 0.03) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+

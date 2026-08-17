@@ -1,0 +1,6 @@
+{
+  "name": "MORR FIT Houston",
+  "description": "Premium, modern, conversion-focused website for MORR FIT Houston - More Than A Gym. This Is MORR.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
