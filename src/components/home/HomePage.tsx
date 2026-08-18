@@ -103,7 +103,6 @@ export const HomePage: React.FC<HomePageProps> = ({
       </div>
 
       {/* 7. Real Results & Verified Body Transformations */}
-      <ResultsSection onOpenBooking={onOpenBooking} />
 
       {/* 8. Community & Houston Culture */}
       <CommunitySection />
@@ -139,23 +138,10 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </div>
 
-      {/* 10. Shop MORR Section (Curated items + CTA to dedicated Store Page) */}
-      <ShopSection
-        onAddToCart={onAddToCart}
-        onNavigateStore={onNavigateStore}
-      />
 
-      {/* 11. Member Testimonials & 5-Star Reviews */}
-      <TestimonialsSection />
 
-      {/* 12. Houston Events Calendar */}
-      <EventsSection onRSVP={onRSVPEvent} />
 
-      {/* 13. Instagram Movement Feed */}
-      <InstagramSection />
 
-      {/* 14. Lead Magnet: Free 7-Day Workout & Nutrition Plan PDF */}
-      <LeadMagnetSection onSuccess={onLeadMagnetSuccess} />
 
       {/* 15. Houston Facility Location, Map & Contact Form */}
       <LocationSection onSendMessage={onLocationSendMessage} />
