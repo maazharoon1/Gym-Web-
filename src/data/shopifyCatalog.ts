@@ -17,7 +17,6 @@ export const SHOPIFY_CATEGORIES = [
   'Women’s Activewear',
   'Shorts & Bottoms',
   'Hoodies & Outerwear',
-  'Gear & Accessories'
 ];
 
 export const SHOPIFY_ALL_PRODUCTS: ShopProduct[] = [

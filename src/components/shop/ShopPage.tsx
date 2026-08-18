@@ -142,7 +142,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-bold text-[#FF6321] uppercase tracking-wider mb-4">
               <span className="w-2 h-2 rounded-full bg-[#FF6321] animate-pulse" />
-              <span>OFFICIAL SHOPIFY ONLINE STOREFRONT</span>
+              <span>OFFICIAL  ONLINE STOREFRONT</span>
             </div>
             <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-[0.9]">
               MORR FIT <span className="text-[#FF6321]">COLLECTIONS.</span>
