@@ -54,7 +54,7 @@ export interface TransformationStory {
 export interface ShopProduct {
   id: string;
   name: string;
-  category: 'Apparel' | 'Accessories' | 'Gear' | 'Sets' | 'Shorts';
+  category: 'Apparel' | 'Accessories' |  'Sets' | 'Shorts';
   subcategory?: string;
   price: number;
   originalPrice?: number;
