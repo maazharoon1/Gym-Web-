@@ -1,32 +1,23 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/navbar/Navbar';
-import { Hero } from './components/hero/Hero';
-import { QuickActions } from './components/quick-actions/QuickActions';
-import { WhyMorr } from './components/why-morr/WhyMorr';
-import { FreeTrialSection } from './components/free-trial/FreeTrialSection';
-import { MembershipsSection } from './components/memberships/MembershipsSection';
-import { ClassesSchedule } from './components/classes/ClassesSchedule';
-import { ResultsSection } from './components/results/ResultsSection';
-import { CommunitySection } from './components/community/CommunitySection';
-import { PersonalTrainingSection } from './components/personal-training/PersonalTrainingSection';
-import { TrainersSection } from './components/trainers/TrainersSection';
-import { OnlineMorrSection } from './components/online/OnlineMorrSection';
-import { YogaRecoverySection } from './components/yoga/YogaRecoverySection';
-import { ShopSection } from './components/shop/ShopSection';
-import { EventsSection } from './components/events/EventsSection';
-import { TestimonialsSection } from './components/testimonials/TestimonialsSection';
-import { InstagramSection } from './components/instagram/InstagramSection';
-import { LeadMagnetSection } from './components/lead-magnet/LeadMagnetSection';
-import { LocationSection } from './components/location/LocationSection';
-import { FinalCta } from './components/cta/FinalCta';
+import { HomePage } from './components/home/HomePage';
+import { ClassesPage } from './components/classes/ClassesPage';
+import { TrainingPage } from './components/training/TrainingPage';
+import { ShopPage } from './components/shop/ShopPage';
+import { CheckoutPage } from './components/checkout/CheckoutPage';
 import { Footer } from './components/footer/Footer';
 import { BookingModal, ModalMode } from './components/modals/BookingModal';
 import { CartDrawer } from './components/modals/CartDrawer';
 import { ToastNotification, ToastMessage } from './components/ui/ToastNotification';
 import { FloatingActionBar } from './components/ui/FloatingActionBar';
-import { ClassItem, MembershipPlan, ShopProduct, Trainer, CartItem } from './types';
+import { ClassItem, MembershipPlan, ShopProduct, Trainer, CartItem, OrderDetails } from './types';
+
+export type ActivePageView = 'home' | 'classes' | 'training' | 'store' | 'checkout';
 
 export default function App() {
+  // Page View state: 'home' | 'classes' | 'training' | 'store' | 'checkout'
+  const [activeView, setActiveView] = useState<ActivePageView>('home');
+
   // Modal states
   const [modalMode, setModalMode] = useState<ModalMode>(null);
   const [selectedClass, setSelectedClass] = useState<ClassItem | null>(null);
@@ -124,6 +115,22 @@ export default function App() {
     });
   };
 
+  const handleBuyNow = (product: ShopProduct, size?: string) => {
+    setCartItems((prev) => {
+      const existingIdx = prev.findIndex(
+        (item) => item.product.id === product.id && item.selectedSize === size
+      );
+      if (existingIdx > -1) {
+        return prev;
+      } else {
+        return [...prev, { product, selectedSize: size, quantity: 1 }];
+      }
+    });
+    setIsCartOpen(false);
+    setActiveView('checkout');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleUpdateQuantity = (productId: string, delta: number) => {
     setCartItems((prev) =>
       prev
@@ -142,91 +149,111 @@ export default function App() {
     setCartItems((prev) => prev.filter((item) => item.product.id !== productId));
   };
 
-  const handleCheckout = () => {
+  const handleProceedToCheckout = () => {
     setIsCartOpen(false);
+    setActiveView('checkout');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOrderCompleted = (order: OrderDetails) => {
     setCartItems([]);
     addToast({
-      title: 'Order Placed!',
-      description: 'Your MORR apparel is confirmed for pickup or priority shipping.'
+      title: `Order #${order.orderId} Confirmed!`,
+      description: `Receipt sent to ${order.customer.email}. Pickup available at 2715 Emancipation Ave.`,
+      type: 'success'
     });
   };
 
   const totalCartCount = cartItems.reduce((acc, curr) => acc + curr.quantity, 0);
 
+  // Navigation router helper
+  const navigateTo = (view: ActivePageView) => {
+    setActiveView(view);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Render Dedicated Checkout Page
+  if (activeView === 'checkout') {
+    return (
+      <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col selection:bg-[#FF6321] selection:text-black">
+        <CheckoutPage
+          items={cartItems}
+          onBackToStore={() => navigateTo('store')}
+          onOrderCompleted={handleOrderCompleted}
+          onUpdateQuantity={handleUpdateQuantity}
+        />
+        <ToastNotification toasts={toasts} onDismiss={removeToast} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col selection:bg-[#FF6321] selection:text-black">
-      {/* Sticky Navigation Bar */}
+      {/* Universal Sticky Header */}
       <Navbar
         onOpenBooking={handleOpenBooking}
         onOpenCart={() => setIsCartOpen(true)}
+        onNavigateHome={() => navigateTo('home')}
+        onNavigateClasses={() => navigateTo('classes')}
+        onNavigateTraining={() => navigateTo('training')}
+        onNavigateStore={() => navigateTo('store')}
+        activeView={activeView}
         cartCount={totalCartCount}
       />
 
-      {/* Main Experience Layout */}
+      {/* Main Page View Switching */}
       <main className="flex-grow">
-        {/* Cinematic Hero */}
-        <Hero onOpenBooking={handleOpenBooking} />
+        {activeView === 'home' && (
+          <HomePage
+            onOpenBooking={handleOpenBooking}
+            onBookClass={handleBookClass}
+            onSelectPlan={handleSelectPlan}
+            onComparePlans={handleComparePlans}
+            onAddToCart={handleAddToCart}
+            onNavigateClasses={() => navigateTo('classes')}
+            onNavigateTraining={() => navigateTo('training')}
+            onNavigateStore={() => navigateTo('store')}
+            onRSVPEvent={handleRSVPEvent}
+            onLeadMagnetSuccess={addToast}
+            onLocationSendMessage={addToast}
+          />
+        )}
 
-        {/* 6 Quick Action Cards */}
-        <QuickActions onOpenBooking={handleOpenBooking} onOpenCart={() => setIsCartOpen(true)} />
+        {activeView === 'classes' && (
+          <ClassesPage
+            onBookClass={handleBookClass}
+            onOpenBooking={handleOpenBooking}
+            onNavigateHome={() => navigateTo('home')}
+          />
+        )}
 
-        {/* Why MORR FIT - 4 Pillars */}
-        <WhyMorr />
+        {activeView === 'training' && (
+          <TrainingPage
+            onSelectTrainer={handleSelectTrainer}
+            onOpenBooking={handleOpenBooking}
+            onSelectOnlineProduct={handleSelectOnlineProduct}
+          />
+        )}
 
-        {/* Free First Workout Pass Conversion Banner */}
-        <FreeTrialSection onOpenFreePass={() => handleOpenBooking('free-pass')} />
-
-        {/* Memberships & Verified Pricing */}
-        <MembershipsSection
-          onSelectPlan={handleSelectPlan}
-          onComparePlans={handleComparePlans}
-        />
-
-        {/* Interactive Group Classes Schedule & Filters */}
-        <ClassesSchedule onBookClass={handleBookClass} />
-
-        {/* Transformations & Real Results */}
-        <ResultsSection onOpenBooking={handleOpenBooking} />
-
-        {/* Community & Houston Culture Masonry */}
-        <CommunitySection />
-
-        {/* 1-on-1 Personal Training */}
-        <PersonalTrainingSection onBookConsultation={() => handleOpenBooking('pt-consultation')} />
-
-        {/* Trainers & Coaches Roster */}
-        <TrainersSection onSelectTrainer={handleSelectTrainer} />
-
-        {/* Online Programs & Challenges */}
-        <OnlineMorrSection onSelectProduct={handleSelectOnlineProduct} />
-
-        {/* Yoga & Active Recovery */}
-        <YogaRecoverySection onBookYoga={() => handleOpenBooking('class-booking')} />
-
-        {/* Shop MORR Apparel & Gear */}
-        <ShopSection onAddToCart={handleAddToCart} />
-
-        {/* Member Testimonials & 5-Star Reviews */}
-        <TestimonialsSection />
-
-        {/* Houston Community Events Calendar */}
-        <EventsSection onRSVP={handleRSVPEvent} />
-
-        {/* Instagram Movement Feed */}
-        <InstagramSection />
-
-        {/* Lead Magnet: Free 7-Day Workout & Nutrition Plan PDF */}
-        <LeadMagnetSection onSuccess={addToast} />
-
-        {/* Location, 2715 Emancipation Ave Map, Operating Hours & Contact Form */}
-        <LocationSection onSendMessage={addToast} />
-
-        {/* Final Conversion Section */}
-        <FinalCta onOpenBooking={handleOpenBooking} />
+        {activeView === 'store' && (
+          <ShopPage
+            onBackToHome={() => navigateTo('home')}
+            onAddToCart={handleAddToCart}
+            onBuyNow={handleBuyNow}
+            onOpenCart={() => setIsCartOpen(true)}
+            cartCount={totalCartCount}
+          />
+        )}
       </main>
 
-      {/* Comprehensive Houston Footer */}
-      <Footer onOpenBooking={handleOpenBooking} />
+      {/* Unified Houston Footer */}
+      <Footer
+        onOpenBooking={handleOpenBooking}
+        onNavigateHome={() => navigateTo('home')}
+        onNavigateClasses={() => navigateTo('classes')}
+        onNavigateTraining={() => navigateTo('training')}
+        onNavigateStore={() => navigateTo('store')}
+      />
 
       {/* Mobile Bottom Conversion Floating Bar */}
       <FloatingActionBar onOpenBooking={handleOpenBooking} />
@@ -251,7 +278,7 @@ export default function App() {
         onClose={() => setIsCartOpen(false)}
         onUpdateQuantity={handleUpdateQuantity}
         onRemoveItem={handleRemoveItem}
-        onCheckout={handleCheckout}
+        onCheckout={handleProceedToCheckout}
       />
 
       {/* Floating Action Notifications */}

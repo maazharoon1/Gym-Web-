@@ -54,12 +54,44 @@ export interface TransformationStory {
 export interface ShopProduct {
   id: string;
   name: string;
-  category: 'Apparel' | 'Accessories' | 'Gear';
+  category: 'Apparel' | 'Accessories' | 'Gear' | 'Sets' | 'Shorts';
+  subcategory?: string;
   price: number;
+  originalPrice?: number;
   image: string;
+  galleryImages?: string[];
+  colors?: string[];
   badge?: string;
   sizes?: string[];
   description: string;
+  rating?: number;
+  reviewCount?: number;
+  inStock?: boolean;
+}
+
+export interface OrderDetails {
+  orderId: string;
+  customer: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  items: CartItem[];
+  shippingMethod: 'pickup' | 'standard' | 'express';
+  shippingCost: number;
+  discountCode?: string;
+  discountAmount: number;
+  subtotal: number;
+  tax: number;
+  total: number;
+  paymentMethod: 'card' | 'shoppay' | 'applepay' | 'cash_in_gym';
+  createdAt: string;
+  estimatedDelivery: string;
 }
 
 export interface CommunityEvent {

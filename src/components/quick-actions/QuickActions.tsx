@@ -5,9 +5,17 @@ import { motion } from 'motion/react';
 interface QuickActionsProps {
   onOpenBooking: (mode: 'free-pass' | 'membership' | 'class-booking' | 'pt-consultation') => void;
   onOpenCart?: () => void;
+  onNavigateClasses?: () => void;
+  onNavigateTraining?: () => void;
+  onNavigateStore?: () => void;
 }
 
-export const QuickActions: React.FC<QuickActionsProps> = ({ onOpenBooking }) => {
+export const QuickActions: React.FC<QuickActionsProps> = ({
+  onOpenBooking,
+  onNavigateClasses,
+  onNavigateTraining,
+  onNavigateStore
+}) => {
   const cards = [
     {
       id: 'join-gym',
@@ -31,8 +39,12 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onOpenBooking }) => 
       image: '/src/assets/images/morr_group_class_1787007835845.jpg',
       ctaText: 'VIEW CLASS SCHEDULE',
       action: () => {
-        const el = document.getElementById('classes');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (onNavigateClasses) {
+          onNavigateClasses();
+        } else {
+          const el = document.getElementById('classes');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     },
     {
@@ -42,8 +54,14 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onOpenBooking }) => 
       description: 'Custom strength programming, body recomposition, movement analysis, and nutritional accountability built for your goals.',
       icon: UserCheck,
       image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80',
-      ctaText: 'BOOK CONSULTATION',
-      action: () => onOpenBooking('pt-consultation')
+      ctaText: 'EXPLORE COACHING',
+      action: () => {
+        if (onNavigateTraining) {
+          onNavigateTraining();
+        } else {
+          onOpenBooking('pt-consultation');
+        }
+      }
     },
     {
       id: 'train-online',
@@ -54,8 +72,12 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onOpenBooking }) => 
       image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80',
       ctaText: 'EXPLORE DIGITAL',
       action: () => {
-        const el = document.getElementById('online');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (onNavigateTraining) {
+          onNavigateTraining();
+        } else {
+          const el = document.getElementById('online');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     },
     {
@@ -64,11 +86,15 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onOpenBooking }) => 
       subtitle: 'Apparel & Streetwear Gear',
       description: 'Heavyweight tees, drop-shoulder hoodies, foam trucker caps, insulated shakers, and heavy lifting accessories.',
       icon: ShoppingBag,
-      image: '/src/assets/images/morr_apparel_merch_1787007882441.jpg',
-      ctaText: 'SHOP COLLECTION',
+      image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/8213DBB3-3DAC-4E3B-A3E5-D8365C50912C.jpg?v=1759268104&width=1100',
+      ctaText: 'SHOP MORR',
       action: () => {
-        const el = document.getElementById('shop');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (onNavigateStore) {
+          onNavigateStore();
+        } else {
+          const el = document.getElementById('shop');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     },
     {
@@ -80,8 +106,12 @@ export const QuickActions: React.FC<QuickActionsProps> = ({ onOpenBooking }) => 
       image: '/src/assets/images/morr_yoga_recovery_1787007863409.jpg',
       ctaText: 'EXPLORE RECOVERY',
       action: () => {
-        const el = document.getElementById('recovery');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (onNavigateClasses) {
+          onNavigateClasses();
+        } else {
+          const el = document.getElementById('recovery');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   ];

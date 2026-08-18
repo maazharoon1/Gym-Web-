@@ -7,12 +7,22 @@ import { BUSINESS_INFO } from '../../data/mockData';
 interface NavbarProps {
   onOpenBooking: (mode: 'free-pass' | 'membership' | 'class-booking') => void;
   onOpenCart: () => void;
+  onNavigateHome?: () => void;
+  onNavigateClasses?: () => void;
+  onNavigateTraining?: () => void;
+  onNavigateStore?: () => void;
+  activeView?: 'home' | 'classes' | 'training' | 'store' | 'checkout';
   cartCount: number;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenBooking,
   onOpenCart,
+  onNavigateHome,
+  onNavigateClasses,
+  onNavigateTraining,
+  onNavigateStore,
+  activeView = 'home',
   cartCount
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -32,14 +42,61 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const navLinks = [
-    { label: 'HOME', href: '#hero' },
-    { label: 'CLASSES', href: '#classes' },
-    { label: 'MEMBERSHIPS', href: '#memberships' },
-    { label: 'TRAINING', href: '#training' },
-    { label: 'ONLINE', href: '#online' },
-    { label: 'COMMUNITY', href: '#community' },
-    { label: 'SHOP', href: '#shop' },
-    { label: 'LOCATION', href: '#location' },
+    {
+      label: 'HOME',
+      action: () => {
+        if (onNavigateHome) onNavigateHome();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      isActive: activeView === 'home'
+    },
+    {
+      label: 'CLASSES',
+      action: () => {
+        if (onNavigateClasses) onNavigateClasses();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      isActive: activeView === 'classes'
+    },
+    {
+      label: 'TRAINING',
+      action: () => {
+        if (onNavigateTraining) onNavigateTraining();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      isActive: activeView === 'training'
+    },
+    {
+      label: 'SHOP MORR',
+      action: () => {
+        if (onNavigateStore) onNavigateStore();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      badge: 'HOT',
+      isActive: activeView === 'store'
+    },
+    {
+      label: 'MEMBERSHIPS',
+      action: () => {
+        if (onNavigateHome) onNavigateHome();
+        setTimeout(() => {
+          const el = document.querySelector('#memberships');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      },
+      isActive: false
+    },
+    {
+      label: 'LOCATION',
+      action: () => {
+        if (onNavigateHome) onNavigateHome();
+        setTimeout(() => {
+          const el = document.querySelector('#location');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      },
+      isActive: false
+    },
   ];
 
   return (
@@ -53,26 +110,56 @@ export const Navbar: React.FC<NavbarProps> = ({
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
-          <a href="#hero" className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              if (onNavigateHome) onNavigateHome();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex items-center gap-2 text-left"
+          >
             <MorrLogo size="md" />
-          </a>
+          </button>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.label}
-                href={link.href}
-                className="text-xs font-bold font-athletic tracking-widest text-neutral-300 hover:text-[#FF5500] transition-colors relative py-1 group"
+                onClick={() => {
+                  if (link.action) {
+                    link.action();
+                  }
+                }}
+                className={`text-xs font-bold font-athletic tracking-widest transition-colors relative py-1 group flex items-center gap-1.5 ${
+                  link.isActive
+                    ? 'text-[#FF5500]'
+                    : 'text-neutral-300 hover:text-[#FF5500]'
+                }`}
               >
-                {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FF5500] transition-all duration-200 group-hover:w-full" />
-              </a>
+                <span>{link.label}</span>
+                {link.badge && (
+                  <span className="bg-[#FF5500] text-black text-[9px] font-black px-1.5 py-0.2 rounded font-mono">
+                    {link.badge}
+                  </span>
+                )}
+                <span className={`absolute bottom-0 left-0 h-0.5 bg-[#FF5500] transition-all duration-200 ${link.isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+              </button>
             ))}
           </nav>
 
           {/* Right Action Items */}
           <div className="flex items-center gap-3 sm:gap-4">
+            {/* Store Quick Button */}
+            {onNavigateStore && (
+              <button
+                onClick={onNavigateStore}
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-athletic tracking-wider text-[#FF5500] bg-[#FF5500]/10 border border-[#FF5500]/30 hover:bg-[#FF5500] hover:text-black transition-all"
+              >
+                <ShoppingBag className="w-3.5 h-3.5" />
+                <span>SHOP MORR</span>
+              </button>
+            )}
+
             {/* Cart Trigger */}
             <button
               onClick={onOpenCart}
@@ -141,18 +228,29 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Nav Links */}
             <div className="flex-1 py-8 space-y-4">
               {navLinks.map((link, idx) => (
-                <motion.a
+                <motion.button
                   key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (link.action) link.action();
+                  }}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.04 }}
-                  className="flex items-center justify-between py-2 text-2xl font-athletic font-bold tracking-wider text-neutral-200 hover:text-[#FF5500] border-b border-neutral-900 transition-colors"
+                  className={`w-full flex items-center justify-between py-2 text-2xl font-athletic font-bold tracking-wider border-b border-neutral-900 transition-colors text-left ${
+                    link.isActive ? 'text-[#FF5500]' : 'text-neutral-200 hover:text-[#FF5500]'
+                  }`}
                 >
-                  <span>{link.label}</span>
+                  <div className="flex items-center gap-2">
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="bg-[#FF5500] text-black text-[10px] font-black px-2 py-0.5 rounded font-mono">
+                        {link.badge}
+                      </span>
+                    )}
+                  </div>
                   <ChevronRight className="w-5 h-5 text-neutral-600" />
-                </motion.a>
+                </motion.button>
               ))}
             </div>
 

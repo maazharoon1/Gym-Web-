@@ -24,6 +24,7 @@ export const BUSINESS_INFO = {
   instagramHandle: '@morrfitness',
   facebookUrl: 'https://facebook.com/MorrFitHouston',
   linktreeUrl: 'https://linktr.ee/morrfitness',
+  shopifyUrl: 'https://morr-fit-houston.myshopify.com',
   hours: {
     members: '24/7/365 Keycard Access for 24-Hour Members',
     staffed: 'Mon - Fri: 5:00 AM – 9:00 PM | Sat: 7:00 AM – 6:00 PM | Sun: 8:00 AM – 4:00 PM',
@@ -328,59 +329,104 @@ export const TRANSFORMATION_STORIES: TransformationStory[] = [
 
 export const SHOP_PRODUCTS: ShopProduct[] = [
   {
-    id: 'merch-1',
-    name: 'MORR Heavyweight Boxy Tee',
+    id: 'shopify-body-crop',
+    name: 'Body by Morr Fit Crop',
     category: 'Apparel',
-    price: 38,
-    image: '/src/assets/images/morr_apparel_merch_1787007876805.jpg',
+    price: 54.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/8213DBB3-3DAC-4E3B-A3E5-D8365C50912C.jpg?v=1759268104&width=1100',
     badge: 'BESTSELLER',
-    sizes: ['S', 'M', 'L', 'XL', '2XL'],
-    description: '280 GSM vintage wash 100% cotton tee with iconic high-density screenprinted MORR FIT Houston chest logo.'
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    description: 'Signature performance compression crop top. 4-way stretch fabric with supportive under-bust band.'
   },
   {
-    id: 'merch-2',
-    name: 'MORR Athletic Drop-Shoulder Hoodie',
+    id: 'shopify-scrunch-shorts',
+    name: 'High-waist scrunch shorts',
     category: 'Apparel',
-    price: 68,
-    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80',
+    price: 39.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/36383A1F-860E-44DD-99EE-D4E209B2263F.png?v=1779816295&width=1100',
+    badge: 'COMMUNITY FAVORITE',
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    description: 'High-waisted compression contour scrunch booty shorts. Squat-proof non-sheer knit.'
+  },
+  {
+    id: 'shopify-jacquard-leggings',
+    name: 'Jacquard Elastic Band Leggings',
+    category: 'Apparel',
+    price: 44.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/501C0826-06FD-4DBE-AB29-A9224807A4AD.png?v=1759265078&width=533',
     badge: 'NEW DROP',
-    sizes: ['S', 'M', 'L', 'XL', '2XL'],
-    description: 'Heavyweight fleece hoodie built for cold morning warmups and streetwear comfort. Custom orange aglets and MF sleeve print.'
+    sizes: ['XS', 'S', 'M', 'L'],
+    description: 'Sculpting high-rise leggings featuring the custom jacquard MORR FIT branded elastic waistband.'
   },
   {
-    id: 'merch-3',
-    name: 'Official MORR Foam Trucker Cap',
+    id: 'shopify-athletic-men-shorts',
+    name: 'Morr Athletic Men Shorts',
     category: 'Apparel',
-    price: 32,
-    image: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80',
-    badge: 'HOT',
-    sizes: ['One Size Fits All (Snapback)'],
-    description: 'Breathable mesh back with 3D puff embroidered MORR FIT mark. Houston orange on matte black.'
+    price: 34.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/image_d2fef37a-c956-4b29-93ef-4cece94d2cb8.heic?v=1689040919&width=1100',
+    badge: 'HOT SELLER',
+    sizes: ['S', 'M', 'L', 'XL', '2XL'],
+    description: 'Lightweight performance training shorts designed for heavy squats, Olympic lifting, and turf sprint drills.'
   },
   {
-    id: 'merch-4',
-    name: 'MORR Matte Black 32oz Insulated Shaker',
+    id: 'shopify-men-hoodie',
+    name: 'MorrFit Men Hoodies',
+    category: 'Apparel',
+    price: 64.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/IMG-4039.png?v=1771998884&width=533',
+    badge: 'PREMIUM HEAVYWEIGHT',
+    sizes: ['S', 'M', 'L', 'XL', '2XL', '3XL'],
+    description: 'Heavyweight athletic drop-shoulder fleece hoodie with high-density MORR FIT Houston chest embroidery.'
+  },
+  {
+    id: 'shopify-body-suit',
+    name: 'Morr Body suits',
+    category: 'Apparel',
+    price: 34.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/6908CC3C-7C28-46B9-B4A2-4545024694A4.jpg?v=1696036257&width=1100',
+    badge: 'VERSATILE FIT',
+    sizes: ['XS', 'S', 'M', 'L'],
+    description: 'Seamless all-in-one athletic bodysuit for gym workouts, yoga flows, or layered streetwear styling.'
+  },
+  {
+    id: 'shopify-sports-bra',
+    name: 'Sports Bra',
+    category: 'Apparel',
+    price: 24.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/IMG-2661.png?v=1779818270&width=533',
+    badge: 'MEDIUM IMPACT',
+    sizes: ['XS', 'S', 'M', 'L'],
+    description: 'Supportive medium-to-high impact athletic sports bra with removable padding and rear crisscross straps.'
+  },
+  {
+    id: 'shopify-morr-bands',
+    name: 'Morr Bands',
+    category: 'Gear',
+    price: 20.00,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/image.heic?v=1688665299&width=1100',
+    badge: 'ESSENTIAL GEAR',
+    sizes: ['Pack of 3'],
+    description: 'Non-slip premium fabric resistance booty & glute activation bands for heavy hip thrusts and squats.'
+  },
+  {
+    id: 'shopify-recovery-slides',
+    name: 'Morr Fit Recovery Slides',
     category: 'Accessories',
-    price: 26,
-    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
-    description: 'Triple-wall stainless steel shaker bottle. Keeps pre-workout cold for 24 hours with zero condensation.'
+    price: 24.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/IMG-1793.png?v=1777322201&width=533',
+    badge: 'COMFORT',
+    sizes: ['US 6', 'US 7', 'US 8', 'US 9', 'US 10', 'US 11', 'US 12'],
+    description: 'Ergonomic EVA arch-support recovery slides with ultra-cushioned footbed for post-workout relief.'
   },
   {
-    id: 'merch-5',
-    name: 'Heavy-Duty MORR Lifting Straps & Band Set',
-    category: 'Gear',
-    price: 30,
-    image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80',
-    badge: 'ESSENTIAL',
-    description: 'Reinforced cotton deadlift straps and 3-level glute activation resistance loop bands.'
-  },
-  {
-    id: 'merch-6',
-    name: 'MORR Duffle Bag (Emancipation Edition)',
-    category: 'Gear',
-    price: 65,
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80',
-    description: 'Water-resistant nylon gym duffle with ventilated shoe compartment, padded shoulder strap, and keycard pocket.'
+    id: 'shopify-performance-socks',
+    name: 'MF Performance Crew Socks',
+    category: 'Accessories',
+    price: 11.99,
+    image: 'https://morr-fit-houston.myshopify.com/cdn/shop/files/5F1DF446-0233-451F-AABE-3245705557BF.jpg?v=1776956085',
+    badge: '3-PACK',
+    sizes: ['One Size (US 6-12)'],
+    description: 'Cushioned athletic crew socks with arch compression band and jacquard MF monogram embroidery.'
   }
 ];
 

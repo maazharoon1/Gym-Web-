@@ -5,16 +5,34 @@ import { BUSINESS_INFO } from '../../data/mockData';
 
 interface FooterProps {
   onOpenBooking: (mode: 'free-pass' | 'membership') => void;
+  onNavigateStore?: () => void;
+  onNavigateHome?: () => void;
+  onNavigateClasses?: () => void;
+  onNavigateTraining?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
+export const Footer: React.FC<FooterProps> = ({
+  onOpenBooking,
+  onNavigateStore,
+  onNavigateHome,
+  onNavigateClasses,
+  onNavigateTraining
+}) => {
   return (
     <footer className="bg-[#050505] text-white border-t border-white/5 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/5">
           {/* Col 1: Brand & Bio (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
-            <MorrLogo size="lg" />
+            <button
+              onClick={() => {
+                if (onNavigateHome) onNavigateHome();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="text-left"
+            >
+              <MorrLogo size="lg" />
+            </button>
             <p className="text-sm text-white/60 max-w-sm leading-relaxed mt-4">
               More than a gym. We are a high-energy community fitness movement in Houston's historic Third Ward. 24/7 keycard access, elite barbell equipment, dynamic group HIIT, and 1-on-1 coaching.
             </p>
@@ -58,15 +76,25 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
               >
                 <Facebook className="w-4 h-4" />
               </a>
-              <a
-                href={BUSINESS_INFO.linktreeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-3.5 h-10 rounded bg-white/5 border border-white/10 flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#FF6321] hover:text-black hover:border-[#FF6321] transition-all"
-              >
-                <span>LINKTREE</span>
-                <ArrowUpRight className="w-3 h-3" />
-              </a>
+              {onNavigateStore ? (
+                <button
+                  onClick={onNavigateStore}
+                  className="px-3.5 h-10 rounded bg-white/5 border border-white/10 flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#FF6321] hover:text-black hover:border-[#FF6321] transition-all"
+                >
+                  <span>SHOP MORR</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </button>
+              ) : (
+                <a
+                  href={BUSINESS_INFO.shopifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 h-10 rounded bg-white/5 border border-white/10 flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#FF6321] hover:text-black hover:border-[#FF6321] transition-all"
+                >
+                  <span>SHOP MORR</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -77,22 +105,22 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             </span>
             <ul className="space-y-2 text-xs uppercase font-bold tracking-wider text-white/60">
               <li>
-                <a href="#hero" className="hover:text-[#FF6321] transition-colors">Home</a>
+                <button onClick={() => { if (onNavigateHome) onNavigateHome(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-[#FF6321] transition-colors">Home</button>
               </li>
               <li>
-                <a href="#classes" className="hover:text-[#FF6321] transition-colors">Class Schedule</a>
+                <button onClick={() => { if (onNavigateClasses) onNavigateClasses(); else if (onNavigateHome) onNavigateHome(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-[#FF6321] transition-colors">Class Schedule</button>
               </li>
               <li>
-                <a href="#memberships" className="hover:text-[#FF6321] transition-colors">Memberships</a>
+                <button onClick={() => { if (onNavigateHome) onNavigateHome(); setTimeout(() => document.querySelector('#memberships')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="hover:text-[#FF6321] transition-colors">Memberships</button>
               </li>
               <li>
-                <a href="#training" className="hover:text-[#FF6321] transition-colors">Personal Training</a>
+                <button onClick={() => { if (onNavigateTraining) onNavigateTraining(); else if (onNavigateHome) onNavigateHome(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-[#FF6321] transition-colors">Personal Training</button>
               </li>
               <li>
-                <a href="#trainers" className="hover:text-[#FF6321] transition-colors">Our Coaches</a>
+                <button onClick={() => { if (onNavigateTraining) onNavigateTraining(); else if (onNavigateHome) onNavigateHome(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-[#FF6321] transition-colors">Our Coaches</button>
               </li>
               <li>
-                <a href="#recovery" className="hover:text-[#FF6321] transition-colors">Yoga & Recovery</a>
+                <button onClick={() => { if (onNavigateClasses) onNavigateClasses(); else if (onNavigateHome) onNavigateHome(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-[#FF6321] transition-colors">Yoga & Recovery</button>
               </li>
             </ul>
           </div>
@@ -100,23 +128,26 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           {/* Col 3: Programs & Digital (2 cols) */}
           <div className="lg:col-span-2 space-y-3">
             <span className="text-[11px] font-black uppercase tracking-widest text-[#FF6321] block font-display">
-              DIGITAL & CULTURE
+              DIGITAL & MERCH
             </span>
             <ul className="space-y-2 text-xs uppercase font-bold tracking-wider text-white/60">
               <li>
-                <a href="#online" className="hover:text-[#FF6321] transition-colors">30-Day Challenge</a>
+                {onNavigateStore ? (
+                  <button onClick={onNavigateStore} className="text-[#FF6321] hover:underline font-black">
+                    ★ Shop Morr Store
+                  </button>
+                ) : (
+                  <a href="#shop" className="hover:text-[#FF6321] transition-colors">Shop Morr</a>
+                )}
               </li>
               <li>
-                <a href="#online" className="hover:text-[#FF6321] transition-colors">MORR Digital App</a>
+                <button onClick={() => { if (onNavigateTraining) onNavigateTraining(); else if (onNavigateHome) onNavigateHome(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="hover:text-[#FF6321] transition-colors">30-Day Challenge</button>
               </li>
               <li>
-                <a href="#community" className="hover:text-[#FF6321] transition-colors">Community Events</a>
+                <button onClick={() => { if (onNavigateHome) onNavigateHome(); setTimeout(() => document.querySelector('#community')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="hover:text-[#FF6321] transition-colors">Community Events</button>
               </li>
               <li>
-                <a href="#shop" className="hover:text-[#FF6321] transition-colors">Official Apparel</a>
-              </li>
-              <li>
-                <a href="#location" className="hover:text-[#FF6321] transition-colors">Houston Facility</a>
+                <button onClick={() => { if (onNavigateHome) onNavigateHome(); setTimeout(() => document.querySelector('#location')?.scrollIntoView({ behavior: 'smooth' }), 100); }} className="hover:text-[#FF6321] transition-colors">Houston Facility</button>
               </li>
             </ul>
           </div>
