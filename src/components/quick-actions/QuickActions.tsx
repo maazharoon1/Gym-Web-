@@ -23,7 +23,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
       subtitle: 'Memberships & 24/7 Access',
       description: 'Full keycard access, free weights up to 150 lbs, turf track, power racks, and private locker rooms on Emancipation Ave.',
       icon: Dumbbell,
-      image: '/src/assets/images/morr_hero_gym_1787007820351.jpg',
+      image: '/src/assets/images/AT1.jpeg',
       ctaText: 'EXPLORE PLANS',
       action: () => {
         const el = document.getElementById('memberships');
@@ -36,7 +36,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
       subtitle: 'HIIT, Bootcamp, Glutes & Strength',
       description: 'High-octane team workouts coached by Houston’s elite trainers. Master your lifts, sweat hard, and conquer daily workouts.',
       icon: Flame,
-      image: '/src/assets/images/morr_group_class_1787007835845.jpg',
+      image: '/src/assets/images/APBR.jpeg',
       ctaText: 'VIEW CLASS SCHEDULE',
       action: () => {
         if (onNavigateClasses) {

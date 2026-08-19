@@ -178,7 +178,7 @@ export const CLASSES_DATA: ClassItem[] = [
     intensity: 'High',
     spotsLeft: 4,
     description: 'The signature high-octane MORR HIIT experience. Explosive cardio intervals, kettlebells, turf drills, and heavy bodyweight movements.',
-    image: '/src/assets/images/morr_group_class_1787007835845.jpg'
+    image: '/src/assets/images/AT1.jpeg'
   },
   {
     id: 'class-morning-515',
@@ -191,7 +191,7 @@ export const CLASSES_DATA: ClassItem[] = [
     intensity: 'High',
     spotsLeft: 6,
     description: 'Early morning grind before the Houston heat. Compound lifting circuits, tire flips, battle ropes, and functional conditioning to start your day with power.',
-    image: '/src/assets/images/morr_hero_gym_1787007820351.jpg'
+    image: '/src/assets/images/ATBB1.jpeg'
   },
   {
     id: 'class-evening-630',
@@ -204,7 +204,7 @@ export const CLASSES_DATA: ClassItem[] = [
     intensity: 'High',
     spotsLeft: 5,
     description: 'Peak hour electric atmosphere. Heavy compound barbell training, dumbbell complexes, and metabolic conditioning accompanied by live DJ sets.',
-    image: '/src/assets/images/morr_community_1787007850135.jpg'
+    image: '/src/assets/images/APBR.jpeg'
   },
   {
     id: 'class-yoga-ricky',
@@ -230,7 +230,7 @@ export const CLASSES_DATA: ClassItem[] = [
     intensity: 'High',
     spotsLeft: 12,
     description: 'Houston’s biggest free community workout! Bring your friends, family, and training partners to 2715 Emancipation Ave for turf circuits and music.',
-    image: '/src/assets/images/morr_group_class_1787007835845.jpg'
+    image: '/src/assets/images/ATBG.jpeg'
   },
   {
     id: 'class-glutes',

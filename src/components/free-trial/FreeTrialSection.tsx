@@ -73,7 +73,7 @@ export const FreeTrialSection: React.FC<FreeTrialSectionProps> = ({ onOpenFreePa
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-neutral-700 shadow-2xl bg-[#0D0D10]">
                 <img
-                  src="/src/assets/images/morr_group_class_1787007835845.jpg"
+                  src="/src/assets/images/TGBG.jpeg"
                   alt="Experience MORR FIT workout"
                   referrerPolicy="no-referrer"
                   className="w-full h-[320px] sm:h-[380px] object-cover filter brightness-90"

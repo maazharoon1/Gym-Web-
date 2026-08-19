@@ -20,19 +20,19 @@ export const CommunitySection: React.FC = () => {
     {
       title: 'Saturday Emancipation Ave Turf War',
       tag: 'OUTDOOR ATHLETICS',
-      image: '/src/assets/images/morr_group_class_1787007835845.jpg',
+      image: '/src/assets/images/FAPB.jpeg',
       span: 'md:col-span-1 h-[240px]'
     },
     {
       title: 'Sunday Recovery & Mobility Flow',
       tag: 'RESTORATION',
-      image: '/src/assets/images/morr_yoga_recovery_1787007863409.jpg',
+      image: '/src/assets/images/TGBG.jpeg',
       span: 'md:col-span-1 h-[240px]'
     },
     {
       title: 'Late Night Houston Iron Grind',
       tag: '24/7 DEDICATION',
-      image: '/src/assets/images/morr_hero_gym_1787007820351.jpg',
+      image: '/src/assets/images/WRNT.jpeg',
       span: 'md:col-span-2 h-[240px]'
     }
   ];
